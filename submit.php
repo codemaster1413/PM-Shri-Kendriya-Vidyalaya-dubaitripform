@@ -1,0 +1,159 @@
+<?php
+
+// Database connection parameters
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "trip";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if the form was submitted using POST method
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Collect form data and sanitize it
+    $name = $conn->real_escape_string($_POST['name']);
+    $age = $conn->real_escape_string($_POST['age']);
+    $gender = $conn->real_escape_string($_POST['gender']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $phone = $conn->real_escape_string($_POST['phone']);
+    $other = $conn->real_escape_string($_POST['other']);
+
+    // SQL query to insert data into the 'participants' table
+    // IMPORTANT: Ensure 'participants' is the correct table name and remove 'dt' if not needed.
+    $sql = "INSERT INTO trip (name, age, gender, email, phone, other)
+            VALUES ('$name', '$age', '$gender', '$email', '$phone', '$other')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "<h2>Thanks for submitting your form. We are happy to see you joining us for Dubai trip</h2>";
+       
+        // echo "<p>Name: " . htmlspecialchars($name) . "</p>";
+        // echo "<p>Age: " . htmlspecialchars($age) . "</p>";
+        // echo "<p>Gender: " . htmlspecialchars($gender) . "</p>";
+        // echo "<p>Email: " . htmlspecialchars($email) . "</p>";
+        // echo "<p>Phone: " . htmlspecialchars($phone) . "</p>";
+        // if (!empty($other)) {
+        //     echo "<p>Other Information: " . htmlspecialchars($other) . "</p>";
+        // }
+        echo "<p><a href='index.html'>Go back to form</a></p>";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+} else {
+    // If accessed directly without POST request
+    echo "<h2>Invalid Request</h2>";
+    echo "<p>Please submit the form from the main page.</p>";
+    echo "<p><a href='index.html'>Go back to form</a></p>";
+}
+
+// Close database connection
+$conn->close();
+
+?>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PM Shri Kendriya Vidyalaya Dubai Trip Form December 2025</title>
+<link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <img class="logo1"src="02.svg" alt="Shiksha Mantralaya blue logo with sun rays in yellow" />
+      <div class="top-bar-text">
+       
+        <h1>PM SHRI KENDRIYA VIDYALAYA NO 2 ARMY AREA PATHANKOT</h1>
+         <p>पी एम श्री केंद्रीय विद्यालय क्रमांक २ आर्मी एरिया पठानकोट</p>
+        <p>
+            कैदी कोड: 1691 सीबीएसई सम्बंधता संख्या: 1600007 सीबीएसई स्कूल कोड: 24537 शिक्षा मंत्रालय, भारत सरकार के अधीन एक स्वायत्त निकाय</p>
+      </div>
+    </div>
+    <div class="top-bar-right">
+      <!-- <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/79e85b45-902a-45b9-af77-692dda6ad269.png" alt="Ministry of Education Government of India logo in white and blue"/> -->
+      <img src="rightlogo.png" alt="PM SHRI logo in orange with lotus symbol" width="280px" height="150px" />
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <img class="bg" src="burjkhalifa.avif" alt="">
+    <div class="form-section">
+      <h2>WELCOME TO PM SHRI KENDRIYA VIDYALAYA DUBAI TRIP FORM DECEMBER 2025</h2>
+      <p>Enter your details below and submit this form to confirm your participation in the trip</p>
+  
+      <form id="tripForm" method="POST" action="submit.php" novalidate>
+        <input type="text" name="name" id="name" placeholder="Enter Your Name" required />
+        <input type="number" name="age" id="age" placeholder="Enter Your Age" min="1" max="120" required />
+        <input type="text" name="gender" id="gender" placeholder="Enter Your Gender" required />
+        <input type="email" name="email" id="email" placeholder="Enter Your Email" required />
+        <input type="tel" name="phone" id="phone" placeholder="Enter Your Phone" pattern="[0-9+\-\s]*" required />
+        <textarea name="other" id="other" rows="4" placeholder="Enter any other information here"></textarea>
+        <button type="submit" id="submitBtn" class="submit-button">Submit</button>
+      </form>
+    </div>
+  </div>
+ 
+    <div class="image-section">
+ <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e3bde0b6-88fd-493b-89bd-ecbf6be7f0ba.png" alt="Group photo of students and dignitaries including Prime Minister standing on stage"  width="433px" height="370px"/> 
+
+   <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/526d0eee-90ee-48fa-8059-1c26830e7a7a.png" alt="Group of students meeting and greeting dignitaries in formal hall"  width="433px" height="370px"/>
+  
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cffec1f7-299c-43cc-9b0b-e60c9077699d.png" alt="Large group photo of students holding Indian flags in decorated lobby" width="436px" height="370px"/>
+      
+      </div>
+ 
+
+  <img decoding="async" alt="चित्र उपलब्द नहीं है" src="https://cdnbbsr.s3waas.gov.in/s32d2ca7eedf739ef4c3800713ec482e1a/uploads/2025/06/2025062050-1024x280.jpg" draggable="false" width="100%">
+  <br>
+  <br>  
+  <br>  
+  <br> 
+  <div class="pmshripic">
+      <img fetchpriority="high" decoding="async" width="1310" height="823" src="https://cdnbbsr.s3waas.gov.in/s3kv023e93c9a70ed020d368dffc2a0d0d/uploads/2025/03/2025031753.jpeg" class="vc_single_image-img attachment-full" alt="selfie point" srcset="https://cdnbbsr.s3waas.gov.in/s3kv023e93c9a70ed020d368dffc2a0d0d/uploads/2025/03/2025031753.jpeg 1280w, https://cdnbbsr.s3waas.gov.in/s3kv023e93c9a70ed020d368dffc2a0d0d/uploads/2025/03/2025031753-300x193.jpeg 300w, https://cdnbbsr.s3waas.gov.in/s3kv023e93c9a70ed020d368dffc2a0d0d/uploads/2025/03/2025031753-1024x658.jpeg 1024w, https://cdnbbsr.s3waas.gov.in/s3kv023e93c9a70ed020d368dffc2a0d0d/uploads/2025/03/2025031753-768x494.jpeg 768w" width="100%" height="">  
+  </div>
+
+ 
+
+  <!-- Bottom Bar -->
+   <nav class="footer-links">
+      <a href="">प्रतिक्रिया</a></li>
+<a href="">/ वेबसाइट नीतियां</a></li>
+<a href="">/ संपर्क करें</a></li>
+<a href="">/ सहायता</a></li>
+</ul>
+    </nav>
+  <footer class="bottom-bar">
+    
+    <div class="footer-info">
+      सामग्री का स्वामित्व पी एम श्री के वि क्र २ सैन्य क्षेत्र पठानकोट<br />
+      इस वेबसाइट का निर्माण राष्ट्रीय सूचना विज्ञान केंद्र,<br />
+      इंजीनियरिंग एवं सूचना प्रौद्योगिकी मंत्रालय, भारत सरकार द्वारा किया गया है।
+    </div>
+    <div class="footer-date">अंतिम अद्यतन: Jun 19, 2025<br />आगंकु: 3086</div>
+    <div class="footer-logos">
+      <a href="" onclick="return confirm('You are being redirected to an external website. Please note that पी एम् श्री  केन्द्रीय विद्यालय II  आर्मी एरिया पठानकोट cannot be held responsible for external websites content &amp; privacy policies.');" aria-label="https://s3waas.gov.in/ - बाहरी साइट जो एक नई विंडो में खुलती है" title="https://s3waas.gov.in/ - बाहरी साइट जो एक नई विंडो में खुलती है" target="_blank" rel="noopener noreferrer"><img src="https://no2pathankot.kvs.ac.in/wp-content/themes/sdo-theme/assets/images/s3waas.png" alt="एक सेवा के रूप में सुरक्षित, मापनीय और सुगम वेबसाइट"></a>
+
+
+     <a href="" onclick="return confirm('You are being redirected to an external website. Please note that पी एम् श्री  केन्द्रीय विद्यालय II  आर्मी एरिया पठानकोट cannot be held responsible for external websites content &amp; privacy policies.');" aria-label="http://www.nic.in/ - बाहरी साइट जो एक नई विंडो में खुलती है" title="http://www.nic.in/ - बाहरी साइट जो एक नई विंडो में खुलती है" target="_blank" rel="noopener noreferrer"><img src="https://no2pathankot.kvs.ac.in/wp-content/themes/sdo-theme/assets/images/nicLogo.png" alt="राष्ट्रीय सूचना केंद्र"></a>
+
+
+    <a href="" onclick="return confirm('You are being redirected to an external website. Please note that पी एम् श्री  केन्द्रीय विद्यालय II  आर्मी एरिया पठानकोट cannot be held responsible for external websites content &amp; privacy policies.');" aria-label="https://www.education.gov.in/ - बाहरी साइट जो एक नई विंडो में खुलती है" title="https://www.education.gov.in/ - बाहरी साइट जो एक नई विंडो में खुलती है" target="_blank" rel="noopener noreferrer"><img src="https://no2pathankot.kvs.ac.in/wp-content/themes/sdo-theme/assets/images/MOE.png" alt="शिक्षा मंत्रालय"></a>
+    </div>
+    <div class="scroll-up" id="scrollUp" title="Scroll to top">⇧</div>
+  </footer>
+<script src="index.js"></script>
+</body>
+</html>
+
